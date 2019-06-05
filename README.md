@@ -43,6 +43,19 @@
 
 Welcome to the BASIC source code repository! This software enables businesses to rapidly build and deploy high-performance and high-security blockchain-based applications.
 
+This code is currently alpha-quality and under rapid development. That said,
+there is plenty early experimenters can do including, running a private multi-node test network and
+develop applications (smart contracts).
+
+# Resources
+1. [BASIC Website](https://basicchain.org)
+2. [Documentation](https://basicchain.org/basic)
+3. [Blog](https://steemit.com/@basicchain)
+4. [Community Telegram Group](https://basicchain.org/chat)
+5. [Developer Telegram Group](https://t.me/joinchat/EaEnSUPktgfoI-XPfMYtcQ)
+6. [White Paper](https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md)
+7. [Roadmap](https://github.com/EOSIO/Documentation/blob/master/Roadmap.md)
+
 Some of the groundbreaking features of BASIC include:
 
 1. An AI Powered Blockchain
