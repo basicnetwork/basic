@@ -10,24 +10,24 @@
     <img src="https://travis-ci.org/basicnetwork/basic.svg?branch=master">
   </a>
   
-  <a href="https://codecov.io/gh/tronprotocol/java-tron">
-    <img src="https://codecov.io/gh/tronprotocol/java-tron/branch/develop/graph/badge.svg" />
+  <a href="https://codecov.io/gh/basicnetwork/basic/">
+    <img src="https://codecov.io/gh/basicnetwork/basic/branch/master/graph/badge.svg" />
   </a>
   
-  <a href="https://github.com/tronprotocol/java-tron/issues">
-    <img src="https://img.shields.io/github/issues/tronprotocol/java-tron.svg">
+  <a href="https://github.com/basicnetwork/basic/issues">
+    <img src="https://img.shields.io/github/issues/basicnetwork/basic.svg">
   </a>
   
-  <a href="https://github.com/tronprotocol/java-tron/pulls">
-    <img src="https://img.shields.io/github/issues-pr/tronprotocol/java-tron.svg">
+  <a href="https://github.com/basicnetwork/basic/pulls">
+    <img src="https://img.shields.io/github/issues-pr/basicnetwork/basic.svg">
   </a>
   
-  <a href="https://github.com/tronprotocol/java-tron/graphs/contributors"> 
-    <img src="https://img.shields.io/github/contributors/tronprotocol/java-tron.svg">
+  <a href="https://github.com/basicnetwork/basic/graphs/contributors"> 
+    <img src="https://img.shields.io/github/contributors/basicnetwork/basic.svg">
   </a>
   
   <a href="LICENSE">
-    <img src="https://img.shields.io/github/license/tronprotocol/java-tron.svg">
+    <img src="https://img.shields.io/github/license/basicnetwork/basic.svg">
   </a>
 </p>
 
@@ -35,7 +35,7 @@
   <a href="#quick-start">Quick Start</a> •
   <a href="#deploy">Deploy</a> •
   <a href="#developer-community">Developer Community</a> •
-  <a href="http://developers.tron.network">Documentation</a> •
+  <a href="http://developers.basicchain.org">Documentation</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#projects">Projects</a> •
   <a href="#resource">Resource</a>
@@ -49,12 +49,12 @@ develop applications (smart contracts).
 
 # Resources
 1. [BASIC Website](https://basicchain.org)
-2. [Documentation](https://basicchain.org/basic)
+2. [Documentation](https://developers.basicchain.org/)
 3. [Blog](https://steemit.com/@basicchain)
 4. [Community Telegram Group](https://basicchain.org/chat)
-5. [Developer Telegram Group](https://t.me/joinchat/EaEnSUPktgfoI-XPfMYtcQ)
-6. [White Paper](https://github.com/EOSIO/Documentation/blob/master/TechnicalWhitePaper.md)
-7. [Roadmap](https://github.com/EOSIO/Documentation/blob/master/Roadmap.md)
+5. [Developer Telegram Group](https://t.me/basicchaindev)
+6. [White Paper](https://github.com/basicnetwork/basic/blob/master/Documentation/TechnicalWhitePaper.md)
+7. [Roadmap](https://github.com/basicnetwork/basic/blob/master/Documentation/Roadmap.md)
 
 Some of the groundbreaking features of BASIC include:
 
