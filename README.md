@@ -6,8 +6,8 @@
     <img src="https://img.shields.io/badge/chat-on%20discord-brightgreen.svg">
   </a>
     
-  <a href="https://travis-ci.org/tronprotocol/java-tron">
-    <img src="https://travis-ci.org/tronprotocol/java-tron.svg?branch=develop">
+  <a href="https://travis-ci.org/basicnetwork/basic/">
+    <img src="https://travis-ci.org/basicnetwork/basic.svg?branch=master">
   </a>
   
   <a href="https://codecov.io/gh/tronprotocol/java-tron">
