@@ -2,7 +2,7 @@
 # BASIC CHAIN - The Most Powerful Infrastructure for Decentralized Applications
 
 <p align="center">
-  <a href="https://discord.gg/GsRgsTD">
+  <a href="#">
     <img src="https://img.shields.io/badge/chat-on%20discord-brightgreen.svg">
   </a>
     
