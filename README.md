@@ -10,9 +10,9 @@
     <img src="https://travis-ci.org/basicnetwork/basic.svg?branch=master">
   </a>
   
-  <a href="https://codecov.io/gh/basicnetwork/basic/">
-    <img src="https://codecov.io/gh/basicnetwork/basic/branch/master/graph/badge.svg" />
-  </a>
+  <a href="https://codecov.io/gh/basicnetwork/basic">
+  <img src="https://codecov.io/gh/basicnetwork/basic/branch/master/graph/badge.svg" />
+</a>
   
   <a href="https://github.com/basicnetwork/basic/issues">
     <img src="https://img.shields.io/github/issues/basicnetwork/basic.svg">
