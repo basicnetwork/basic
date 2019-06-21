@@ -272,3 +272,34 @@ A blockchain that adopts the BASIC-CHAIN software will award new tokens to a min
 ## Worker Proposal System
 
 Pursuant to a blockchain based on the BASIC-CHAIN software, token holders can elect a number of Worker Proposals designed to benefit the community. The winning proposals will receive tokens of up to a configured percent of the token inflation. These proposals will receive tokens proportional to the votes each application has received from token holders, up to the amount they request for performing their work. The elected proposals can be replaced by newly elected proposals by token holders.
+
+
+# Governance
+
+Governance is the process by which people in a community:
+
+1. Reach consensus on subjective matters of collective action that cannot be captured entirely by software algorithms;
+2. Carry out the decisions they reach; and
+3. Alter the governance rules themselves via Constitutional amendments. 
+
+A BASIC-CHAIN software-based blockchain implements a governance process that efficiently directs the existing influence of miners. Absent a defined governance process, prior blockchains relied ad hoc, informal, and often controversial governance processes that result in unpredictable outcomes.
+
+A blockchain based on the BASIC-CHAIN software recognizes that power originates with the token holders who delegate their Token power to staking. The miners are given limited and checked authority to freeze accounts, update defective applications, and propose hard forking changes to the underlying protocol.
+
+Before any change can be made to the blockchain the miners must approve it. If the miners refuse to make changes desired by the community then they can be voted out. If the miners make changes without permission of the community then all other non-miner full-node validators (exchanges, etc) will reject the change.
+
+## Freezing Accounts
+
+Sometimes a smart contact behaves in an aberrant or unpredictable manner and fails to perform as intended; other times an application or account may discover an exploit that enables it to consume an unreasonable amount of resources. When such issues inevitably occur, the miners have the power to rectify such situations.
+
+The miners on all blockchains have the power to select which transactions are included in blocks which gives them the ability to freeze accounts. A blockchain using EOS.IO software formalizes this authority by subjecting the process of freezing an account to a 15/21 vote of active producers. If the producers abuse the power they can be voted out and an account will be unfrozen.
+
+## Changing Account Code
+
+When all else fails and an "unstoppable application" acts in an unpredictable manner, a blockchain using EOS.IO software allows the block producers to replace the account's code without hard forking the entire blockchain. Similar to the process of freezing an account, this replacement of the code requires a 15/21 vote of elected block producers.
+
+## Constitution
+
+The EOS.IO software enables blockchains to establish a peer-to-peer terms of service agreement or a binding contract among those users who sign it, referred to as a "constitution". The content of this constitution defines obligations among the users which cannot be entirely enforced by code and facilitates dispute resolution by establishing jurisdiction and choice of law along with other mutually accepted rules. Every transaction broadcast on the network must incorporate the hash of the constitution as part of the signature and thereby explicitly binds the signer to the contract.
+
+The constitution also defines the human-readable intent of the source code protocol. This intent is used to identify the difference between a bug and a feature when errors occur and guides the community on what fixes are proper or improper.
