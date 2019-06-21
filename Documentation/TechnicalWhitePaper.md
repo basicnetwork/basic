@@ -292,14 +292,36 @@ Before any change can be made to the blockchain the miners must approve it. If t
 
 Sometimes a smart contact behaves in an aberrant or unpredictable manner and fails to perform as intended; other times an application or account may discover an exploit that enables it to consume an unreasonable amount of resources. When such issues inevitably occur, the miners have the power to rectify such situations.
 
-The miners on all blockchains have the power to select which transactions are included in blocks which gives them the ability to freeze accounts. A blockchain using EOS.IO software formalizes this authority by subjecting the process of freezing an account to a 15/21 vote of active producers. If the producers abuse the power they can be voted out and an account will be unfrozen.
+The miners on all blockchains have the power to select which transactions are included in blocks which gives them the ability to freeze accounts. A blockchain using BASIC-CHAIN software formalizes this authority by subjecting the process of freezing an account to a 51-70% vote of active miners. If the miners abuse the power they can be voted out and an account will be unfrozen.
 
 ## Changing Account Code
 
-When all else fails and an "unstoppable application" acts in an unpredictable manner, a blockchain using EOS.IO software allows the block producers to replace the account's code without hard forking the entire blockchain. Similar to the process of freezing an account, this replacement of the code requires a 15/21 vote of elected block producers.
+When all else fails and an "unstoppable application" acts in an unpredictable manner, a blockchain using BASIC-CHAIN software allows the miners to replace the account's code without hard forking the entire blockchain. Similar to the process of freezing an account, this replacement of the code requires a 51-70% vote of miners in the network.
 
 ## Constitution
 
-The EOS.IO software enables blockchains to establish a peer-to-peer terms of service agreement or a binding contract among those users who sign it, referred to as a "constitution". The content of this constitution defines obligations among the users which cannot be entirely enforced by code and facilitates dispute resolution by establishing jurisdiction and choice of law along with other mutually accepted rules. Every transaction broadcast on the network must incorporate the hash of the constitution as part of the signature and thereby explicitly binds the signer to the contract.
+The BASIC-CHAIN software enables blockchains to establish a peer-to-peer terms of service agreement or a binding contract among those users who sign it, referred to as a "constitution". The content of this constitution defines obligations among the users which cannot be entirely enforced by code and facilitates dispute resolution by establishing jurisdiction and choice of law along with other mutually accepted rules. Every transaction broadcast on the network must incorporate the hash of the constitution as part of the signature and thereby explicitly binds the signer to the contract.
 
 The constitution also defines the human-readable intent of the source code protocol. This intent is used to identify the difference between a bug and a feature when errors occur and guides the community on what fixes are proper or improper.
+
+## Upgrading the Protocol & Constitution
+
+The BASIC-CHAIN software defines the following process by which the protocol, as defined by the canonical source code and its constitution, can be updated:
+
+1.  Miners propose a change to the constitution and obtains 15/21 approval.
+2.  Miners maintain 51-70% approval of the new **constitution** for 30 consecutive days.
+3.  All users are required to indicate acceptance of the new constitution as a condition of future transactions being processed.
+4.  Miners adopt changes to the source code to reflect the change in the constitution and propose it to the blockchain using the hash of the new constitution.
+5.  Miners maintain 51-70% approval of the new **code** for 30 consecutive days.
+6.  Changes to the code take effect 7 days later, giving all non-miner full nodes 1 week to upgrade after ratification of the source code.
+7.  All nodes that do not upgrade to the new code shut down automatically.
+
+By default, configuration of the BASIC-CHAIN software, the process of updating the blockchain to add new features takes 2 to 3 months, while updates to fix non-critical bugs that do not require changes to the constitution can take 1 to 2 months.
+
+### Emergency Changes
+
+The miners may accelerate the process if a software change is required to fix a harmful bug or security exploit that is actively harming users. Generally speaking it could be against the constitution for accelerated updates to introduce new features or fix harmless bugs.
+
+# Scripts & Virtual Machines
+
+The BASIC-CHAIN software will be first and foremost a platform for coordinating the delivery of authenticated messages (called Actions) to accounts. The details of scripting language and virtual machine are implementation specific details that are mostly independent from the design of the BASIC-CHAIN technology. Any language or virtual machine that is deterministic and properly sandboxed with sufficient performance can be integrated with the BASIC-CHAIN software API.
