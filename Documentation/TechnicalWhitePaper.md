@@ -11,6 +11,64 @@ Without permission, anyone may use, reproduce or distribute any material in this
 
 **DISCLAIMER:** This BASIC CHAIN Technical White Paper v1 is for information purposes only. LoopBlock Network does not guarantee the accuracy of or the conclusions reached in this white paper, and this white paper is provided “as is”. LoopBlock Network does not make and expressly disclaims all representations and warranties, express, implied, statutory or otherwise, whatsoever, including, but not limited to: (i) warranties of merchantability, fitness for a particular purpose, suitability, usage, title or noninfringement; (ii) that the contents of this white paper are free from error; and (iii) that such contents will not infringe third-party rights. LoopBlock Network and its affiliates shall have no liability for damages of any kind arising out of the use, reference to, or reliance on this white paper or any of the content contained herein, even if advised of the possibility of such damages. In no event will LoopBlock Network or its affiliates be liable to any person or entity for any damages, losses, liabilities, costs or expenses of any kind, whether direct or indirect, consequential, compensatory, incidental, actual, exemplary, punitive or special for the use of, reference to, or reliance on this white paper or any of the content contained herein, including, without limitation, any loss of business, revenues, profits, data, use, goodwill or other intangible losses.
 
+<!-- MarkdownTOC depth=4 autolink=true bracket=round list_bullets="-*+" -->
+
+- [Background](#background)
+- [Requirements for Blockchain Applications](#requirements-for-blockchain-applications)
+  * [Support Millions of Users](#support-millions-of-users)
+  * [Free Usage](#free-usage)
+  * [Easy Upgrades and Bug Recovery](#easy-upgrades-and-bug-recovery)
+  * [Low Latency](#low-latency)
+  * [Sequential Performance](#sequential-performance)
+  * [Parallel Performance](#parallel-performance)
+- [Consensus Algorithm \(QUARK-POW/POS\)](#consensus-algorithm-quark-pow/pos)
+  * [Transaction Confirmation](#transaction-confirmation)
+  * [Transaction as Proof of Stake \(TaPoS\)](#transaction-as-proof-of-stake-tapos)
+- [Accounts](#accounts)
+  * [Actions & Handlers](#actions--handlers)
+  * [Role Based Permission Management](#role-based-permission-management)
+    + [Named Permission Levels](#named-permission-levels)
+    + [Permission Mapping](#permission-mapping)
+    + [Evaluating Permissions](#evaluating-permissions)
+      - [Default Permission Groups](#default-permission-groups)
+      - [Parallel Evaluation of Permissions](#parallel-evaluation-of-permissions)
+  * [Actions with Mandatory Delay](#actions-with-mandatory-delay)
+  * [Recovery from Stolen Keys](#recovery-from-stolen-keys)
+- [Deterministic Parallel Execution of Applications](#deterministic-parallel-execution-of-applications)
+  * [Minimizing Communication Latency](#minimizing-communication-latency)
+  * [Read-Only Action Handlers](#read-only-action-handlers)
+  * [Atomic Transactions with Multiple Accounts](#atomic-transactions-with-multiple-accounts)
+  * [Partial Evaluation of Blockchain State](#partial-evaluation-of-blockchain-state)
+  * [Subjective Best Effort Scheduling](#subjective-best-effort-scheduling)
+  * [Deferred Transactions](#deferred-transactions)
+  * [Context Free Actions](#context-free-actions)
+- [Token Model and Resource Usage](#token-model-and-resource-usage)
+  * [Objective and Subjective Measurements](#objective-and-subjective-measurements)
+  * [Receiver Pays](#receiver-pays)
+  * [Delegating Capacity](#delegating-capacity)
+  * [Separating Transaction costs from Token Value](#separating-transaction-costs-from-token-value)
+  * [State Storage Costs](#state-storage-costs)
+  * [Block Rewards](#block-rewards)
+  * [Worker Proposal System](#worker-proposal-system)
+- [Governance](#governance)
+  * [Freezing Accounts](#freezing-accounts)
+  * [Changing Account Code](#changing-account-code)
+  * [Constitution](#constitution)
+  * [Upgrading the Protocol & Constitution](#upgrading-the-protocol--constitution)
+    + [Emergency Changes](#emergency-changes)
+- [Scripts & Virtual Machines](#scripts--virtual-machines)
+  * [Schema Defined Actions](#schema-defined-actions)
+  * [Schema Defined Database](#schema-defined-database)
+  * [Generic Multi Index Database API](#generic-multi-index-database-api)
+  * [Separating Authentication from Application](#separating-authentication-from-application)
+- [Inter Blockchain Communication](#inter-blockchain-communication)
+  * [Merkle Proofs for Light Client Validation \(LCV\)](#merkle-proofs-for-light-client-validation-lcv)
+  * [Latency of Interchain Communication](#latency-of-interchain-communication)
+  * [Proof of Completeness](#proof-of-completeness)
+  * [Segregated Witness](#segregated-witness)
+- [Conclusion](#conclusion)
+
+<!-- /MarkdownTOC -->
 
 # Background
 
@@ -325,3 +383,77 @@ The miners may accelerate the process if a software change is required to fix a 
 # Scripts & Virtual Machines
 
 The BASIC-CHAIN software will be first and foremost a platform for coordinating the delivery of authenticated messages (called Actions) to accounts. The details of scripting language and virtual machine are implementation specific details that are mostly independent from the design of the BASIC-CHAIN technology. Any language or virtual machine that is deterministic and properly sandboxed with sufficient performance can be integrated with the BASIC-CHAIN software API.
+
+## Schema Defined Actions
+
+All Actions sent between accounts are defined by a schema which is part of the blockchain consensus state. This schema allows seamless conversion between binary and JSON representation of the Actions.
+
+## Schema Defined Database
+
+Database state is also defined using a similar schema. This ensures that all data stored by all applications is in a format that can be interpreted as human readable JSON but stored and manipulated with the efficiency of binary.
+
+## Generic Multi Index Database API
+
+Developing smart contracts requires a defined database schema to track, store, and find data. Developers commonly need the same data sorted or indexed by multiple fields and to maintain consistency among all the indices.
+
+## Separating Authentication from Application
+
+To maximize parallelization opportunities and minimize the computational debt associated with regenerating application state from the transaction log, BASIC-CHAIN software separates validation logic into three sections:
+
+1. Validating that an Action is internally consistent;
+2. Validating that all preconditions are valid; and
+3. Modifying the application state.
+
+Validating the internal consistency of a Action is read-only and requires no access to blockchain state. This means that it can be performed with maximum parallelism. Validating preconditions, such as required balance, is read-only and therefore can also benefit from parallelism. Only modification of application state requires write access and must be processed sequentially for each application.
+
+Authentication is the read-only process of verifying that an Action can be applied. Application is actually doing the work. In real time both calculations are required to be performed, however once a transaction is included in the blockchain it is no longer necessary to perform the authentication operations.
+
+# Inter Blockchain Communication
+
+BASIC-CHAIN software is designed to facilitate inter-blockchain communication. This is achieved by making it easy to generate proof of Action existence and proof of Action sequence. These proofs combined with an application architecture designed around Action passing enables the details of inter-blockchain communication and proof validation to be hidden from application developers, enabling high level abstractions to be presented to developers.
+
+<img align="right" src="https://github.com/basicnetwork/basic/blob/master/Diagram1.jpg" width="362.84px" height="500px" />
+
+## Merkle Proofs for Light Client Validation (LCV)
+
+Integrating with other blockchains is much easier if clients do not need to process all transactions. After all, an exchange only cares about transfers in and out of the exchange and nothing more. It would also be ideal if the exchange chain could utilize lightweight merkle proofs of deposit rather than having to trust its own miners entirely. At the very least a chain's miners would like to maintain the smallest possible overhead when synchronizing with another blockchain.
+
+The goal of LCV is to enable the generation of relatively light-weight proof of existence that can be validated by anyone tracking a relatively light-weight data set. In this case the objective is to prove that a particular transaction was included in a particular block and that the block is included in the verified history of a particular blockchain.
+
+Bitcoin supports validation of transactions assuming all nodes have access to the full history of block headers which amounts to 4MB of block headers per year. At 10 transactions per second, a valid proof requires about 512 bytes. This works well for a blockchain with a 10 minute block interval, but is no longer "light" for blockchains with a 0.5 second block interval.
+
+The BASIC-CHAIN software enables lightweight proofs for anyone who has any irreversible block header after the point in which the transaction was included. Using the hash-linked structure shown it is possible to prove the existence of any transaction with a proof less than 1024 bytes in size.
+
+Given any block id for a block in the blockchain, and the headers a trusted irreversible block. It is possible to prove that the block is included in the blockchain. This proof takes ceil(log2(N)) digests for its path, where N is the number of blocks in the chain. Given a digest method of SHA256, you can prove the existence of any block in a chain which contains 100 million blocks in 864 bytes.
+
+There is little incremental overhead associated with producing blocks with the proper hash-linking to enable these proofs which means there is no reason not to generate blocks this way.
+
+When it comes time to validate proofs on other chains there are a wide variety of time/ space/ bandwidth optimizations that can be made. Tracking all block headers (420 MB/year) will keep proof sizes small. Tracking only recent headers can offer a trade off between minimal long-term storage and proof size. Alternatively, a blockchain can use a lazy evaluation approach where it remembers intermediate hashes of past proofs. New proofs only have to include links to the known sparse tree. The exact approach used will necessarily depend upon the percentage of foreign blocks that include transactions referenced by merkle proof.
+
+After a certain density of interconnectedness, it becomes more efficient to simply have one chain contain the entire block history of another chain and eliminate the need for proofs all together. For performance reasons, it is ideal to minimize the frequency of inter-chain proofs.
+
+
+## Latency of Interchain Communication
+
+When communicating with another outside blockchain, miners must wait until there is 100% certainty that a transaction has been irreversibly confirmed by the other blockchain before accepting it as a valid input. Using an BASIC-CHAIN software-based blockchain and QUARK-POW/POS with 0.5 to 60 seconds blocks and the addition of Byzantine Fault Tolerant irreversibility, this takes approximately 0.5 to 60 seconds. If any chain's miners do not wait for irreversibility it would be like an exchange crediting a deposit that was later reversed and could impact the validity of the blockchain's consensus. The BASIC-CHAIN Software uses both QUARK-POW/POS and aBFT to provide rapid irreversibility.
+
+## Proof of Completeness
+
+When using merkle proofs from outside blockchains, there is a significant difference between knowing that all transactions processed are valid and knowing that no transactions have been skipped or omitted. While it is impossible to prove that all of the most recent transactions are known, it is possible to prove that there have been no gaps in the transaction history. The BASIC-CHAIN software facilitates this by assigning a sequence number to every Action delivered to every account. A user can use these sequence numbers to prove that all Actions intended for a particular account have been processed and that they were processed in order.
+
+## Segregated Witness
+
+The concept of Segregated Witness (SegWit) is that transaction signatures are not relevant after a transaction is immutably included in the blockchain. Once it is immutable the signature data can be pruned and everyone else can still derive the current state. Since signatures represent a large percentage of most transactions, SegWit represents a significant savings in disk usage and syncing time.
+
+This same concept can apply to merkle proofs used for inter-blockchain communication. Once a proof is accepted and irreversibly logged into the blockchain, the 2KB of sha256 hashes used by the proof are no longer necessary to derive the proper blockchain state. In the case of inter-blockchain communication, this savings is 32x greater than the savings on normal signatures.
+
+Another example of SegWit would be for Steem blog posts. Under this model a post would contain only the sha256(blog content) and the blog content would be in the segregated witness data. The miner would verify that the content exists and has the given hash, but the blog content would not need to be stored in order to recover the current state from the blockchain log. This enables proof that the content was once known without having to store said content forever.
+
+# Conclusion
+
+The BASIC-CHAIN software is designed from experience with proven concepts and best practices, and represents fundamental advancements in blockchain technology. The software is part of a holistic blueprint for a globally scalable blockchain society in which decentralized applications can be easily deployed and governed.
+
+# Acknowledgement
+Bitcoin
+Steem Blockchain
+EOS Blockchain
