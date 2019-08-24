@@ -1,0 +1,7 @@
+/**
+@defgroup howtobuild How To Build BASIC-CHAIN
+@brief Describes how to download, compile, and configure an BASIC-CHAIN node
+
+[Check the latest instructions to build BASIC-CHAIN in Github!](https://github.com/BASIC-CHAIN/basic#building-basic-and-running-a-node)
+
+*/
