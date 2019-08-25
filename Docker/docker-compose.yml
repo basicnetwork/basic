@@ -1,0 +1,10 @@
+version: "2"
+
+services:
+  basic:
+    image: basicio/basic 
+    ports:
+    - "8888:8888"
+    - "9876:9876"
+    volumes:
+      - /data/store/basic:/opt/basic/bin/data-dir
